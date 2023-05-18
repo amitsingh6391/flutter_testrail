@@ -1,5 +1,4 @@
 
-
 # Flutter TestRail
 
 This package provides a Dart interface for seamless integration with the TestRail API, enabling automated test reporting, including test run management and case pass/fail reporting.
@@ -18,6 +17,69 @@ TestRail.configure(
 ```
 
 ## Usage
+
+
+### How we can Update Multiple Test status by once:
+
+```dart
+/// create your intial Test Stauts  list. 
+ List<TestStatus> testStatusResults = [
+    TestStatus(
+      caseId: 1758,
+      statusId: 3,
+      comment: 'Verify that user is able to see the splash screen',
+    ),
+    TestStatus(
+      caseId: 1759,
+      statusId: 3,
+      comment:
+          'Verify that after splash screen app user is able to see “Permission screen”',
+    ),
+  ];
+
+  /// Update your list once your test is completed and add status on test rail with updated status.
+
+ await TestRailUtil.reportMultipleTestCaseResults(testStatusResults);
+
+ class TestRailUtil {
+  static void configureTestRail() {
+    HttpOverrides.global = MyHttpOverrides();
+    TestRail.configure(
+      username: 'your user name',
+      password: 'your password',
+      serverDomain: 'https://example.testrail.com',
+    );
+  }
+  /// Add Result Report to Testrail  [reportSingleTestCaseResult],
+  ///
+  /// And Equivalent Status Code:
+  /// 1: Passed
+  /// 2: Blocked
+  /// 3: Untested (not allowed when adding a new result)
+  /// 4: Retest
+  /// 5: Failed
+  ///
+  ///  * So Pass Status Code according to your test status
+  static Future<void> reportMultipleTestCaseResults(
+    List<TestStatus> testStatusResults,
+  ) async {
+    final testRun = await TestRun.get(3); //replace 3 with your own Run Id.
+    await testRun.addResultsForCases(
+      testStatusResults,
+    );
+  }
+}
+
+class MyHttpOverrides extends HttpOverrides {
+  @override
+  HttpClient createHttpClient(SecurityContext? context) {
+    return super.createHttpClient(context)
+      ..badCertificateCallback =
+          (X509Certificate cert, String host, int port) => true;
+  }
+}
+
+```
 
 ### Create Test case
 ```dart
