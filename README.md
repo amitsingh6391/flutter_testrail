@@ -5,7 +5,7 @@ This package provides a Dart interface for seamless integration with the TestRai
 
 ## Getting Started
 
-Initialize the TestRail instance using the config method:
+Initialize the TestRail instance using the configure method:
 
 ```dart
 TestRail.configure(
@@ -38,7 +38,6 @@ TestRail.configure(
   ];
 
   /// Update your list once your test is completed and add status on test rail with updated status.
-
  await TestRailUtil.reportMultipleTestCaseResults(testStatusResults);
 
  class TestRailUtil {
@@ -50,6 +49,8 @@ TestRail.configure(
       serverDomain: 'https://example.testrail.com',
     );
   }
+
+
   /// Add Result Report to Testrail  [reportSingleTestCaseResult],
   ///
   /// And Equivalent Status Code:
@@ -59,7 +60,7 @@ TestRail.configure(
   /// 4: Retest
   /// 5: Failed
   ///
-  ///  * So Pass Status Code according to your test status
+  ///  So Pass Status Code according to your test status
   static Future<void> reportMultipleTestCaseResults(
     List<TestStatus> testStatusResults,
   ) async {
