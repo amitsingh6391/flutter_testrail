@@ -2,98 +2,106 @@
 
 # Flutter TestRail
 
-Flutter TestRail is a Dart package that provides a simple and convenient way to interact with the TestRail API for automated test reporting. It allows you to start test runs, report pass/fail status for test cases, and retrieve test run and test case information.
+This package provides a Dart interface for seamless integration with the TestRail API, enabling automated test reporting, including test run management and case pass/fail reporting.
 
 ## Getting Started
 
-To get started with Flutter TestRail, you need to configure your TestRail credentials by initializing the TestRail instance:
+Initialize the TestRail instance using the config method:
 
 ```dart
 TestRail.configure(
-  username: 'YOUR_USERNAME',
-  password: 'YOUR_PASSWORD',
-  serverDomain: 'https://YOUR_TESTRAIL_SERVER.testrail.com',
+  username: 'USERNAME',
+  password: 'PASSWORD',
+  /// The url that points to the test rail server => https://example.testrail.com
+  serverDomain: 'https://YOUR_SERVER.testrail.com',
 )
+```
 
+## Usage
 
-Usage
-
-Creating a Test Case
-You can create a new test case in a specific section using the TestCase.create method:
-
-dart
-Copy code
+### Create Test case
+```dart
+/// Create new test case in section
 final createdTestCase = await TestCase.create(
-  sectionId: 1,
-  title: 'Test case created via API',
+  // Replace with your own sectionId
+  1,
+  title: 'Test case from API',
   customValues: <String, dynamic>{
-    'custom_feedback': 'This case should be tested last',
+    // Custom fields start with "custom_" prefix
+    'custom_feedback': 'This is custom feedback',
   },
 );
+```
 
-Deleting a Test Case
-To delete a test case, you can use the TestCase.delete method:
-
-dart
-Copy code
+### Delete Test case
+```dart
+/// Get TestCase by ID
 final testCase = await TestCase.get(1);
 
 await testCase.delete();
+```
 
-Creating or Updating Test Runs
-To create a new test run or update an existing one, you can use the TestRun.create and TestRun.updateRun methods:
+### Create or Update Runs
 
-dart
-Copy code
+```dart
+/// Start by creating a new run
 final newRun = await TestRun.create(
-  name: 'Test Execution',
+  name: 'Test execution',
   projectId: 1,
 );
 
+/// Add cases to the run
 await newRun.updateRun(
   caseIds: [1, 2, 3, 5],
 );
+```
 
-Reporting Test Results
-Once you have a test run, you can report results for individual test cases using the TestRun.addResultForCase method:
+Once the run is created, results can be reported by case:
 
-dart
-Copy code
+```dart
 final result = await newRun.addResultForCase(
   caseId: 1,
   statusId: 1,
 );
 
-// Optionally add attachments to the result
-await result.addAttachment('/path/to/attachment.png');
-Retrieving Test Run and Test Case Information
-You can retrieve information about test runs and test cases using the following methods:
+// Optionally add a screenshot or other image to the result
+await result.addAttachment(
+  '/workspace/attachments/failure.png',
+);
+```
 
-dart
-Copy code
+### Get
+
+Historical runs, cases, and sections can be retrieved:
+
+```dart
 final testCase = await TestCase.get(1);
 
 final testCases = await TestCase.getAll(1);
 
 final testRun = await TestRun.get(1);
-Retrieving Test Results
-To retrieve test results, you can use the TestResult.getCaseResults, TestResult.getRunResults, and TestResult.getTestResults methods:
 
-dart
-Copy code
+final testSection = await TestSection.get(1);
+
+final testCaseHistory = await TestCaseHistory.get(1);
+```
+
+Completed or ongoing test run results can be retrieved:
+
+```dart
 final caseResults = await TestResult.getCaseResults(
-  caseId: 1,
-  runId: 2,
+  // Case ID is from TestCases, not TestRun
+  184234,
+  runId: 1833,
 );
 
 final runResults = await TestResult.getRunResults(
-  runId: 2,
-  statusId: [1, 2],
+  1818,
+  statusId: [5, 1],
 );
 
 final testResults = await TestResult.getTestResults(
-  testId: 1,
+  // Test ID from particular TestRun
+  1868150,
 );
-
-
-Feel free to explore the package and customize it according to your needs. If you encounter any issues or have questions, please refer to the package documentation or reach out to the package maintainer for support.
+```
