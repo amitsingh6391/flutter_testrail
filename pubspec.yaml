@@ -1,11 +1,10 @@
 name: flutter_testrail
-description: This package is a thin wrapper around the TestRail API that will allow for automated test reporting in flutter-dart
-homepage: https://github.com/GetDutchie/test_rail_dart
-issue_tracker: https://github.com/GetDutchie/test_rail_dart/issues
-repository: https://github.com/GetDutchie/test_rail_dart
-
+description: This package is a lightweight wrapper around the TestRail API that enables automated test reporting in Dart and Flutter applications.
+homepage: https://github.com/amitsingh6391/flutter_testrail
+issue_tracker: https://github.com/amitsingh6391/flutter_testrail/issues
+repository: https://github.com/amitsingh6391/flutter_testrail
 version: 0.0.1
-homepage:
+
 
 environment:
   sdk: '>=3.0.1 <4.0.0'
