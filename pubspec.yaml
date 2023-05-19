@@ -3,7 +3,7 @@ description: This package is a lightweight wrapper around the TestRail API that 
 homepage: https://github.com/amitsingh6391/flutter_testrail
 issue_tracker: https://github.com/amitsingh6391/flutter_testrail/issues
 repository: https://github.com/amitsingh6391/flutter_testrail
-version: 0.0.4
+version: 1.0.0
 
 
 environment:

@@ -118,7 +118,7 @@ class TestCase {
       parametersMap.putIfAbsent(key, () => value);
     });
 
-    final response = await TestRail.instance.client.request(
+    final response = await FlutterTestRail.instance.client.request(
       '/add_case/$sectionId',
       RequestMethod.post,
       params: parametersMap,
@@ -134,7 +134,7 @@ class TestCase {
       'soft': soft ? 1 : 0,
     };
     final url = '/delete_case/$id';
-    final response = await TestRail.instance.client.request(
+    final response = await FlutterTestRail.instance.client.request(
       url,
       RequestMethod.post,
       params: parametersMap,
@@ -148,7 +148,7 @@ class TestCase {
   }
 
   static Future<TestCase> get(int caseId) async {
-    final response = await TestRail.instance.client
+    final response = await FlutterTestRail.instance.client
         .request('/get_case/$caseId', RequestMethod.get);
     return TestCase.fromJson(response!);
   }
@@ -191,7 +191,7 @@ class TestCase {
 
     queryParameters.removeWhere((_, dynamic value) => value == null);
 
-    final response = await TestRail.instance.client.request(
+    final response = await FlutterTestRail.instance.client.request(
       '/get_cases/$projectId',
       RequestMethod.get,
       queryParameters: queryParameters,

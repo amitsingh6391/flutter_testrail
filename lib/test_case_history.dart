@@ -43,7 +43,7 @@ class TestCaseHistory {
     int? limit,
     int? offset,
   }) async {
-    final response = await TestRail.instance.client
+    final response = await FlutterTestRail.instance.client
         .request('/get_history_for_case/$caseId', RequestMethod.get);
     return TestCaseHistory.fromJson(response!);
   }

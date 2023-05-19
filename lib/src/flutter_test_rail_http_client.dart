@@ -3,7 +3,7 @@ import 'package:http/http.dart' as http;
 
 enum RequestMethod { get, post, postMultipart }
 
-class TestRailHttpClient {
+class FlutterTestRailHttpClient {
   final http.Client client;
   final String password;
 
@@ -14,7 +14,7 @@ class TestRailHttpClient {
   static const String _urlExtension = '/index.php?';
   static const String _apiVersion = '/api/v2';
 
-  TestRailHttpClient({
+  FlutterTestRailHttpClient({
     http.Client? client,
     required this.password,
     required this.serverDomain,

@@ -12,4 +12,4 @@ export 'test_results.dart';
 export 'test_run.dart';
 export 'test_runs.dart';
 export 'test_section.dart';
-export 'package:flutter_testrail/src/test_rail_http_client.dart';
+export 'package:flutter_testrail/src/flutter_test_rail_http_client.dart';

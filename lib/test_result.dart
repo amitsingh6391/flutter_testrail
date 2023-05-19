@@ -68,7 +68,7 @@ class TestResult {
 
   Future<TestAttachment> addAttachment(String path) async {
     final url = '/add_attachment_to_result/$id';
-    final response = await TestRail.instance.client
+    final response = await FlutterTestRail.instance.client
         .request(url, RequestMethod.postMultipart, params: {'filePath': path});
     return TestAttachment.fromJson(response!);
   }
@@ -142,17 +142,73 @@ class TestResult {
     );
   }
 
+  static Future<TestResult> addTestResult(
+    int testId, {
+    int? limit,
+    int? offset,
+    int? statusId,
+    int? version,
+  }) async {
+    final url = '/add_result/$testId';
+
+    final queryParameters = <String, dynamic>{
+      'limit': limit,
+      'offset': offset,
+      'status_id': statusId,
+      'version': version
+    };
+
+    return _postTestResultRequest(
+      requestUrl: url,
+      queryParameters: queryParameters,
+    );
+  }
+
+  static Future<TestResults> addRunResults(
+    int runId, {
+    required List<TestStatus> addTestResults,
+  }) async {
+    final url = '/add_results/$runId';
+
+    final results = addTestResults.map((status) => status.toJson()).toList();
+    final response = await FlutterTestRail.instance.client.request(
+      url,
+      RequestMethod.post,
+      params: {
+        'results': results,
+      },
+    );
+    return TestResults.fromJson(response!);
+  }
+
   static Future<TestResults> _performRequest({
     required String requestUrl,
     Map<String, dynamic>? queryParameters,
   }) async {
     queryParameters?.removeWhere((_, dynamic value) => value == null);
 
-    final response = await TestRail.instance.client.request(
-        requestUrl, RequestMethod.get,
-        queryParameters: queryParameters);
+    final response = await FlutterTestRail.instance.client.request(
+      requestUrl,
+      RequestMethod.post,
+      queryParameters: queryParameters,
+    );
 
     return TestResults.fromJson(response!);
+  }
+
+  static Future<TestResult> _postTestResultRequest({
+    required String requestUrl,
+    Map<String, dynamic>? queryParameters,
+  }) async {
+    queryParameters?.removeWhere((_, dynamic value) => value == null);
+
+    final response = await FlutterTestRail.instance.client.request(
+      requestUrl,
+      RequestMethod.post,
+      queryParameters: queryParameters,
+    );
+
+    return TestResult.fromJson(response!);
   }
 
   Map<String, dynamic> get asJson => {

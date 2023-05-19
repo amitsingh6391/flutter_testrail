@@ -122,7 +122,7 @@ class TestRun {
     String? elapsed,
     required int statusId,
   }) async {
-    final response = await TestRail.instance.client.request(
+    final response = await FlutterTestRail.instance.client.request(
       '/add_result_for_case/$id/$caseId',
       RequestMethod.post,
       params: {
@@ -139,7 +139,7 @@ class TestRun {
     List<TestStatus> testStatusResults,
   ) async {
     final results = testStatusResults.map((status) => status.toJson()).toList();
-    await TestRail.instance.client.request(
+    await FlutterTestRail.instance.client.request(
       '/add_results_for_cases/$id',
       RequestMethod.post,
       params: {
@@ -149,7 +149,7 @@ class TestRun {
   }
 
   Future<TestRun> close() async {
-    final response = await TestRail.instance.client
+    final response = await FlutterTestRail.instance.client
         .request('/close_run/$id', RequestMethod.post);
     return TestRun.fromJson(response!);
   }
@@ -161,7 +161,7 @@ class TestRun {
     required String name,
     required int projectId,
   }) async {
-    final response = await TestRail.instance.client.request(
+    final response = await FlutterTestRail.instance.client.request(
       '/add_run/$projectId',
       RequestMethod.post,
       params: <String, dynamic>{
@@ -175,7 +175,7 @@ class TestRun {
   }
 
   static Future<TestRun> get(int runId) async {
-    final response = await TestRail.instance.client
+    final response = await FlutterTestRail.instance.client
         .request('/get_run/$runId', RequestMethod.get);
     return TestRun.fromJson(response!);
   }
@@ -206,7 +206,7 @@ class TestRun {
 
     queryParameters.removeWhere((_, dynamic value) => value == null);
 
-    final response = await TestRail.instance.client.request(
+    final response = await FlutterTestRail.instance.client.request(
       '/get_runs/$projectId',
       RequestMethod.get,
       queryParameters: queryParameters,
@@ -219,7 +219,7 @@ class TestRun {
     required Iterable<int> caseIds,
     bool includeAll = false,
   }) async {
-    final response = await TestRail.instance.client.request(
+    final response = await FlutterTestRail.instance.client.request(
       '/update_run/$id',
       RequestMethod.post,
       params: {

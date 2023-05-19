@@ -3,8 +3,8 @@ import 'package:flutter_testrail/flutter_testrail.dart';
 import 'package:http/http.dart' as http;
 import 'package:http/testing.dart' as testing;
 
-TestRail stubTestRailConfig(Map<String, dynamic> sample) {
-  return TestRail.configure(
+FlutterTestRail stubTestRailConfig(Map<String, dynamic> sample) {
+  return FlutterTestRail.initialize(
     username: 'userName',
     password: 'password',
     serverDomain: 'test.testrail.com',

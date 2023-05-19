@@ -2,6 +2,8 @@ import 'dart:io';
 import 'package:flutter_testrail/flutter_testrail.dart';
 import 'package:flutter_test/flutter_test.dart';
 
+import 'myapp.dart';
+
 Future<void> main() async {
   setUpAll(() async {
     TestRailUtil.configureTestRail();
@@ -37,7 +39,7 @@ Future<void> main() async {
         );
 
         /// * Pump Your widget here.
-        // tester.pumpWidget(MyApp());
+        tester.pumpWidget(MyApp());
 
         await tester.pumpAndSettle(const Duration(seconds: 5));
 
@@ -60,7 +62,7 @@ Future<void> main() async {
 class TestRailUtil {
   static void configureTestRail() {
     HttpOverrides.global = MyHttpOverrides();
-    TestRail.configure(
+    FlutterTestRail.initialize(
       username: 'your user name',
       password: 'your password',
       serverDomain: 'https://example.testrail.com',

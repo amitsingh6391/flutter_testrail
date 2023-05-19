@@ -8,15 +8,39 @@ This package provides a Dart interface for seamless integration with the TestRai
 Initialize the TestRail instance using the configure method:
 
 ```dart
-TestRail.configure(
-  username: 'USERNAME',
-  password: 'PASSWORD',
-  /// The url that points to the test rail server => https://example.testrail.com
-  serverDomain: 'https://YOUR_SERVER.testrail.com',
-)
+ FlutterTestRail.initialize(
+      username: 'your user name',
+      password: 'your password',
+      /// The url that points to the test rail server => https://example.testrail.com
+      serverDomain: 'https://example.testrail.com',
+    );
 ```
 
+<p><a href="https://buymeacoffee.com/amitsingh6391"> <img align="left" src="https://cdn.buymeacoffee.com/buttons/v2/default-yellow.png" height="50" width="210" alt="amitsingh6391" /></a></p><br><br>
 ## Usage
+
+
+
+### How we can add single result by testId:
+
+```dart
+
+final testResult = await TestResult.addTestResult(9,statusId:1); //replace 9 with your own testId.
+
+```
+
+
+### How we can add Multiple result by one time:
+
+```dart
+
+List<TestStatus> testStatusResult =[TestStatus(caseId:121,statusId:1,comment:'first test passed'),   TestStatus(caseId:122,statusId:5,comment:'second test failed')]
+
+final testResult = await TestResult.addRunResults(3,addTestResults:testStatusResult); //replace 3 with your own RunId.
+
+```
+
+
 
 
 ### How we can Update Multiple Test status by once:
