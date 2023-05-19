@@ -16,12 +16,18 @@ Initialize the TestRail instance using the configure method:
     );
 ```
 
+
+
 <p><a href="https://buymeacoffee.com/amitsingh6391"> <img align="left" src="https://cdn.buymeacoffee.com/buttons/v2/default-yellow.png" height="50" width="210" alt="amitsingh6391" /></a></p><br><br>
+
+
 ## Usage
 
 
 
-### How we can add single result by testId:
+### add_result
+
+#### Adds a new test result, comment or assigns a test. It’s recommended to use add_results instead if you plan to add results for multiple tests.
 
 ```dart
 
@@ -30,7 +36,11 @@ final testResult = await TestResult.addTestResult(9,statusId:1); //replace 9 wit
 ```
 
 
-### How we can add Multiple result by one time:
+
+### add_results
+
+#### Adds one or more new test results, comments, or assigns one or more tests. Ideal for test automation to bulk-add multiple test results in one step.
+
 
 ```dart
 
@@ -43,7 +53,10 @@ final testResult = await TestResult.addRunResults(3,addTestResults:testStatusRes
 
 
 
-### How we can Update Multiple Test status by once:
+### add_results_for_cases
+
+#### Adds one or more new test results, comments or assigns one or more tests (using the case IDs). Ideal for test automation to bulk-add multiple test results in one step.
+
 
 ```dart
 /// create your intial Test Stauts  list. 
@@ -107,6 +120,7 @@ class MyHttpOverrides extends HttpOverrides {
 ```
 
 ### Create Test case
+
 ```dart
 /// Create new test case in section
 final createdTestCase = await TestCase.create(
