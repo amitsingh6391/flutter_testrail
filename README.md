@@ -25,9 +25,9 @@ Initialize the TestRail instance using the configure method:
 
 
 
-### add_result
+### Add Result
 
-#### Adds a new test result, comment or assigns a test. It’s recommended to use add_results instead if you plan to add results for multiple tests.
+Adds a new test result, comment or assigns a test. It’s recommended to use 'Add Result' instead if you plan to add results for multiple tests.
 
 ```dart
 
@@ -37,9 +37,9 @@ final testResult = await TestResult.addTestResult(9,statusId:1); //replace 9 wit
 
 
 
-### add_results
+### Add Results
 
-#### Adds one or more new test results, comments, or assigns one or more tests. Ideal for test automation to bulk-add multiple test results in one step.
+Adds one or more new test results, comments, or assigns one or more tests. Ideal for test automation to bulk-add multiple test results in one step.
 
 
 ```dart
@@ -53,9 +53,9 @@ final testResult = await TestResult.addRunResults(3,addTestResults:testStatusRes
 
 
 
-### add_results_for_cases
+### Add Results For Cases
 
-#### Adds one or more new test results, comments or assigns one or more tests (using the case IDs). Ideal for test automation to bulk-add multiple test results in one step.
+Adds one or more new test results, comments or assigns one or more tests (using the case IDs). Ideal for test automation to bulk-add multiple test results in one step.
 
 
 ```dart
