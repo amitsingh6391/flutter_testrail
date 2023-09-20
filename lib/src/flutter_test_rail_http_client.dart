@@ -21,14 +21,42 @@ class FlutterTestRailHttpClient {
     required this.username,
   }) : client = client ?? http.Client();
 
-  Future<Map<String, dynamic>?> request(
-    String endpoint,
-    RequestMethod method, {
+  Future<List<dynamic>?> getReports({
+    required String endpoint,
     Map<String, dynamic>? queryParameters,
-    // Include `filePath` for `RequestMethod.postMultipart` requests
-    String? filePath,
-    Map<String, dynamic> params = const {},
   }) async {
+    final authorization =
+        'Basic ${base64Encode(utf8.encode('$username:$password'))}';
+    final header = {'authorization': authorization};
+    final protocol = serverDomain.contains('https://') ? 'https' : 'http';
+
+    final simpleDomain = serverDomain.replaceAll(protocol, '').substring(3);
+
+    Map<String, String> filterParams = {'$_apiVersion$endpoint': ''};
+
+    queryParameters?.forEach((key, value) {
+      filterParams.putIfAbsent(key, () => value.toString());
+    });
+
+    final requestUrl = Uri(
+      scheme: protocol,
+      host: simpleDomain,
+      path: 'index.php',
+      queryParameters: filterParams,
+    );
+
+    final response = await client.get(requestUrl, headers: header);
+    return jsonDecode(response.body) as List<dynamic>;
+  }
+
+  Future<Map<String, dynamic>?> request(
+      String endpoint,
+      RequestMethod method, {
+        Map<String, dynamic>? queryParameters,
+        // Include `filePath` for `RequestMethod.postMultipart` requests
+        String? filePath,
+        Map<String, dynamic> params = const {},
+      }) async {
     final url = '$serverDomain.$_urlExtension$_apiVersion/$endpoint';
     final authorization =
         'Basic ${base64Encode(utf8.encode('$username:$password'))}';
