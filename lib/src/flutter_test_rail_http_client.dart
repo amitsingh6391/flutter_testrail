@@ -79,8 +79,8 @@ class FlutterTestRailHttpClient {
     final decodedBodyIsList = jsonDecode(response.body) is List<dynamic>;
     if (response.body.isNotEmpty && !decodedBodyIsList) {
       return jsonDecode(response.body) as Map<String, dynamic>;
+    } else {
+      return {'reports': jsonDecode(response.body)};
     }
-
-    return null;
   }
 }
