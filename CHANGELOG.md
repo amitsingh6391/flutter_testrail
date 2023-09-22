@@ -1,3 +1,5 @@
+## 1.0.3
+Add new method getReports and genrateReport to get test reports on Mail.
 ## 1.0.2
 Updated dependencies
 
@@ -12,7 +14,7 @@ Update Readme file.
 
 2. Add New Method to add Single test Result by : TestResult.addTestResult(9,statusId:1)
 
-3. Now you can also add multiple Test results in one time : 
+3. Now you can also add multiple Test results in one time :
   ### TestResult.addRunResults(3,addTestResults:testStatusResult);
 
 ## 0.0.4
