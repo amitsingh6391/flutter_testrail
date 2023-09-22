@@ -38,9 +38,9 @@ class TestReport {
   }
 
   static Future<List<TestReport>?> getReports({required int projectId}) async {
-    final reports = await FlutterTestRail.instance.client
-        .getReports(endpoint: '/get_reports/$projectId');
-    return reports?.map((e) => TestReport.fromJson(e)).toList();
+    final response = await FlutterTestRail.instance.client.request('/get_reports/$projectId', RequestMethod.get);
+    final reports= response?['reports'] as List<dynamic>;
+    return reports.map((e) => TestReport.fromJson(e)).toList();
   }
 
   static Future<void> generateReport({required int reportId}) async {
